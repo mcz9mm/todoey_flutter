@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 class AddTaskScreen extends StatefulWidget {
-
-  final Function addTaskCallBack;
-
-  AddTaskScreen(this.addTaskCallBack);
-
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
@@ -44,7 +41,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               textAlign: TextAlign.center,
               onChanged: (newText) {
                 newTaskTitle = newText;
-                print(newTaskTitle);
               },
             ),
             SizedBox(height: 8.0,),
@@ -57,7 +53,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               color: Colors.lightBlueAccent,
               onPressed: () {
-                widget.addTaskCallBack(newTaskTitle);
+                Provider.of<TaskData>(context, listen: false).addTask(newTaskTitle);
+                Navigator.pop(context);
               },
             ),
           ],
